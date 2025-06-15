@@ -21,4 +21,30 @@ class TaskRepository {
     }
     throw Exception('Failed to load tasks');
   }
+
+
+  Future<Task> createTask(
+    String title, {
+    String? description,
+    DateTime? dueAt,
+  }) async {
+    final response = await _client.post(
+      Uri.parse('$baseUrl/tasks'),
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode({
+        'user_id': 1,
+        'title': title,
+        'description': description,
+        if (dueAt != null) 'due_at': dueAt.toIso8601String(),
+      }),
+    );
+
+    if (response.statusCode == 201) {
+      return Task.fromJson(
+        json.decode(response.body) as Map<String, dynamic>,
+      );
+    }
+    throw Exception('Failed to create task');
+  }
+
 }
