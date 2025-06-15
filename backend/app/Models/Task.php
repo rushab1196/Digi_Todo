@@ -21,4 +21,11 @@ class Task extends Model
         'is_completed' => 'boolean',
         'due_at' => 'datetime',
     ];
+
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
+
 }

@@ -4,7 +4,10 @@ namespace Database\Seeders;
 
 use App\Models\Task;
 use App\Models\User;
-use Illuminate\Database\Seeder;
+
+use App\Models\Tag;
+
+
 
 class TaskSeeder extends Seeder
 {
@@ -14,6 +17,15 @@ class TaskSeeder extends Seeder
             User::factory()->create(['email' => 'seed@example.com']);
         }
 
+
+        $tags = Tag::all();
+        Task::factory()->count(5)->create()->each(function (Task $task) use ($tags) {
+            if ($tags->isNotEmpty()) {
+                $task->tags()->attach($tags->random(rand(1, $tags->count())));
+            }
+        });
+
         Task::factory()->count(5)->create();
+
     }
 }

@@ -2,6 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/task_bloc.dart';
+import '../data/tag_repository.dart';
+import '../models/tag.dart';
+
+class AddTaskPage extends StatefulWidget {
+  final String baseUrl;
+  const AddTaskPage({super.key, required this.baseUrl});
+=======
 
 class AddTaskPage extends StatefulWidget {
   const AddTaskPage({super.key});
@@ -15,6 +22,31 @@ class _AddTaskPageState extends State<AddTaskPage> {
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
   DateTime? _dueAt;
+  late final TagRepository _tagRepository;
+  List<Tag> _availableTags = [];
+  final Set<int> _selectedTagIds = {};
+
+  @override
+  void initState() {
+    super.initState();
+    _tagRepository = TagRepository(baseUrl: widget.baseUrl);
+    _loadTags();
+  }
+
+  Future<void> _loadTags() async {
+    try {
+      final tags = await _tagRepository.fetchTags();
+      setState(() => _availableTags = tags);
+    } catch (_) {}
+  }
+
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _descriptionController.dispose();
+    super.dispose();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +96,28 @@ class _AddTaskPageState extends State<AddTaskPage> {
                   ),
                 ],
               ),
+              const SizedBox(height: 16),
+              if (_availableTags.isNotEmpty)
+                Wrap(
+                  spacing: 8,
+                  children: _availableTags
+                      .map(
+                        (tag) => FilterChip(
+                          label: Text(tag.name),
+                          selected: _selectedTagIds.contains(tag.id),
+                          onSelected: (selected) {
+                            setState(() {
+                              if (selected) {
+                                _selectedTagIds.add(tag.id);
+                              } else {
+                                _selectedTagIds.remove(tag.id);
+                              }
+                            });
+                          },
+                        ),
+                      )
+                      .toList(),
+                ),
               const SizedBox(height: 24),
               ElevatedButton(
                 onPressed: () {
@@ -75,6 +129,10 @@ class _AddTaskPageState extends State<AddTaskPage> {
                               ? null
                               : _descriptionController.text,
                           dueAt: _dueAt,
+                          tags: _availableTags
+                              .where((t) => _selectedTagIds.contains(t.id))
+                              .toList(),
+
                         ));
                     Navigator.of(context).pop();
                   }
@@ -88,3 +146,5 @@ class _AddTaskPageState extends State<AddTaskPage> {
     );
   }
 }
+
+

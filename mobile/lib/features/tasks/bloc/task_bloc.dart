@@ -26,7 +26,12 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
       try {
         final newTask = await repository.createTask(
           event.userId,
-=======
+
+          event.title,
+          description: event.description,
+          dueAt: event.dueAt,
+          tags: event.tags,
+
           event.userId,
 
     on<AddTask>((event, emit) async {
@@ -36,11 +41,34 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
           event.title,
           description: event.description,
           dueAt: event.dueAt,
+
         );
 
         if (state is TaskLoaded) {
           final updated = List<Task>.from((state as TaskLoaded).tasks)..add(newTask);
           emit(TaskLoaded(updated));
+        } else {
+          add(LoadTasks());
+        }
+      } catch (e) {
+        emit(TaskError(e.toString()));
+      }
+    });
+
+
+    on<ToggleTaskCompletion>((event, emit) async {
+      try {
+        final updatedTask = await repository.updateTask(
+          event.task.id,
+          isCompleted: event.isCompleted,
+        );
+
+        if (state is TaskLoaded) {
+          final tasks = (state as TaskLoaded)
+              .tasks
+              .map((t) => t.id == updatedTask.id ? updatedTask : t)
+              .toList();
+          emit(TaskLoaded(tasks));
         } else {
           add(LoadTasks());
         }

@@ -5,11 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 
 use Illuminate\Http\Request;
-=======
-
-use Illuminate\Http\Request;
-use Illuminate\Http\Request; 
-
 
 use Illuminate\Http\Response;
 
@@ -22,7 +17,11 @@ class TaskController extends Controller
      */
     public function index(): \Illuminate\Http\JsonResponse
     {
+
+        return response()->json(Task::with('tags')->get());
+
         return response()->json(Task::all());
+
     }
 
     /**
@@ -38,11 +37,27 @@ class TaskController extends Controller
             'title' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'due_at' => ['nullable', 'date'],
+
+            'tags' => ['sometimes', 'array'],
+            'tags.*' => ['integer', 'exists:tags,id'],
+        ]);
+
+        $tags = $data['tags'] ?? [];
+        unset($data['tags']);
+
+        $task = Task::create($data);
+        if ($tags) {
+            $task->tags()->attach($tags);
+        }
+
+        return response()->json($task->load('tags'), Response::HTTP_CREATED);
+=======
         ]);
 
         $task = Task::create($data);
 
         return response()->json($task, Response::HTTP_CREATED);
+
     }
 
     /**
@@ -53,7 +68,11 @@ class TaskController extends Controller
      */
     public function show(Task $task): \Illuminate\Http\JsonResponse
     {
+
+        return response()->json($task->load('tags'));
+=======
         return response()->json($task);
+
     }
 
     /**
@@ -70,11 +89,27 @@ class TaskController extends Controller
             'description' => ['sometimes', 'nullable', 'string'],
             'due_at' => ['sometimes', 'nullable', 'date'],
             'is_completed' => ['sometimes', 'boolean'],
+
+            'tags' => ['sometimes', 'array'],
+            'tags.*' => ['integer', 'exists:tags,id'],
+        ]);
+
+        $tags = $data['tags'] ?? null;
+        unset($data['tags']);
+
+        $task->update($data);
+        if ($tags !== null) {
+            $task->tags()->sync($tags);
+        }
+
+        return response()->json($task->load('tags'));
+=======
         ]);
 
         $task->update($data);
 
         return response()->json($task);
+
     }
 
     /**
@@ -91,9 +126,13 @@ class TaskController extends Controller
     }
 
 }
-=======
+
 
 }
-=======
+
+
+}
+
+
 
 

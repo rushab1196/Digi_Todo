@@ -7,13 +7,8 @@ import '../models/task.dart';
 
 import 'add_task_page.dart';
 
-=======
-
-import 'add_task_page.dart';
 
 
-
-import 'add_task_page.dart';
 
 
 
@@ -51,6 +46,27 @@ class TaskListPage extends StatelessWidget {
                             'Due: \${task.dueAt!.toLocal().toString().split(" ")[0]}',
                             style: const TextStyle(fontSize: 12),
                           ),
+
+                        if (task.tags.isNotEmpty)
+                          Wrap(
+                            spacing: 4,
+                            children: task.tags
+                                .map((tag) => Chip(
+                                      label: Text(tag.name, style: const TextStyle(fontSize: 12)),
+                                    ))
+                                .toList(),
+                          ),
+                      ],
+                    ),
+                    trailing: task.isCompleted
+                        ? const Icon(Icons.check_circle, color: Colors.green)
+                        : null,
+                    onTap: () {
+                      context.read<TaskBloc>().add(
+                            ToggleTaskCompletion(task, !task.isCompleted),
+                          );
+                    },
+
                       ],
                     ),
 
@@ -63,6 +79,7 @@ class TaskListPage extends StatelessWidget {
                     trailing: task.isCompleted
                         ? const Icon(Icons.check_circle, color: Colors.green)
                         : null,
+
                   );
                 },
               );
@@ -77,7 +94,11 @@ class TaskListPage extends StatelessWidget {
           onPressed: () {
             Navigator.of(context).push(
               MaterialPageRoute(
+
+                builder: (_) => AddTaskPage(baseUrl: baseUrl),
+
                 builder: (_) => const AddTaskPage(),
+
               ),
             );
           },

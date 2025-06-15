@@ -14,6 +14,10 @@ This repository contains a Laravel API and a Flutter mobile client.
 
 API routes are available under `/api`.
 
+The API now supports managing tasks and tags. Tasks can be assigned multiple
+tags by including a `tags` array of tag IDs when creating or updating a task.
+
+
 ## Mobile (Flutter)
 
 1. Copy `mobile/.env.example` to `mobile/.env` and set `API_BASE_URL` to the
