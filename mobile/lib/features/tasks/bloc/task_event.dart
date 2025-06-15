@@ -9,8 +9,10 @@ abstract class TaskEvent extends Equatable {
 
 class LoadTasks extends TaskEvent {}
 
+  final int userId;
 
-class AddTask extends TaskEvent {
+    required this.userId,
+  List<Object?> get props => [userId, title, description, dueAt];
   final String title;
   final String? description;
   final DateTime? dueAt;
