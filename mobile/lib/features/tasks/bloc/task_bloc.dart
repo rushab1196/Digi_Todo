@@ -21,6 +21,7 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
       }
     });
 
+
     on<AddTask>((event, emit) async {
       try {
         final newTask = await repository.createTask(
@@ -39,5 +40,7 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
         emit(TaskError(e.toString()));
       }
     });
+=======
+
   }
 }

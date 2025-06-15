@@ -22,6 +22,7 @@ class TaskRepository {
     throw Exception('Failed to load tasks');
   }
 
+
   Future<Task> createTask(
     String title, {
     String? description,
@@ -45,4 +46,5 @@ class TaskRepository {
     }
     throw Exception('Failed to create task');
   }
+
 }
