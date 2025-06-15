@@ -20,5 +20,23 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
         emit(TaskError(e.toString()));
       }
     });
+
+    on<AddTask>((event, emit) async {
+      try {
+        final newTask = await repository.createTask(
+          event.title,
+          description: event.description,
+        );
+
+        if (state is TaskLoaded) {
+          final updated = List<Task>.from((state as TaskLoaded).tasks)..add(newTask);
+          emit(TaskLoaded(updated));
+        } else {
+          add(LoadTasks());
+        }
+      } catch (e) {
+        emit(TaskError(e.toString()));
+      }
+    });
   }
 }

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/task_bloc.dart';
 import '../data/task_repository.dart';
 import '../models/task.dart';
+import 'add_task_page.dart';
 
 class TaskListPage extends StatelessWidget {
   final String baseUrl;
@@ -42,6 +43,16 @@ class TaskListPage extends StatelessWidget {
             }
             return const SizedBox.shrink();
           },
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => const AddTaskPage(),
+              ),
+            );
+          },
+          child: const Icon(Icons.add),
         ),
       ),
     );

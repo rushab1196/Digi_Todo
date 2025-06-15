@@ -8,3 +8,13 @@ abstract class TaskEvent extends Equatable {
 }
 
 class LoadTasks extends TaskEvent {}
+
+class AddTask extends TaskEvent {
+  final String title;
+  final String? description;
+
+  const AddTask({required this.title, this.description});
+
+  @override
+  List<Object?> get props => [title, description];
+}
