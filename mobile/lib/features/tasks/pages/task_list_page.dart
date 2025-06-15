@@ -1,0 +1,49 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../bloc/task_bloc.dart';
+import '../data/task_repository.dart';
+import '../models/task.dart';
+
+class TaskListPage extends StatelessWidget {
+  final String baseUrl;
+
+  const TaskListPage({super.key, required this.baseUrl});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => TaskBloc(repository: TaskRepository(baseUrl: baseUrl))
+        ..add(LoadTasks()),
+      child: Scaffold(
+        appBar: AppBar(title: const Text('Tasks')),
+        body: BlocBuilder<TaskBloc, TaskState>(
+          builder: (context, state) {
+            if (state is TaskLoading) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (state is TaskLoaded) {
+              return ListView.builder(
+                itemCount: state.tasks.length,
+                itemBuilder: (context, index) {
+                  final task = state.tasks[index];
+                  return ListTile(
+                    title: Text(task.title),
+                    subtitle: task.description != null
+                        ? Text(task.description!)
+                        : null,
+                    trailing: task.isCompleted
+                        ? const Icon(Icons.check_circle, color: Colors.green)
+                        : null,
+                  );
+                },
+              );
+            } else if (state is TaskError) {
+              return Center(child: Text(state.message));
+            }
+            return const SizedBox.shrink();
+          },
+        ),
+      ),
+    );
+  }
+}
