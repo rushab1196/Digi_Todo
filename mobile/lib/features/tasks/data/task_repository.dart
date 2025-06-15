@@ -3,7 +3,10 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import '../models/task.dart';
+
+
 import '../models/tag.dart';
+
 
 class TaskRepository {
   final String baseUrl;
@@ -25,10 +28,19 @@ class TaskRepository {
 
   Future<Task> createTask(
     int userId,
+
     String title, {
     String? description,
     DateTime? dueAt,
     List<Tag> tags = const [],
+
+    int userId,
+        'user_id': userId,
+  Future<Task> createTask(
+
+    String title, {
+    String? description,
+
   }) async {
     final response = await _client.post(
       Uri.parse('$baseUrl/tasks'),
@@ -39,6 +51,15 @@ class TaskRepository {
         'description': description,
         if (dueAt != null) 'due_at': dueAt.toIso8601String(),
         if (tags.isNotEmpty) 'tags': tags.map((t) => t.id).toList(),
+
+
+        'user_id': userId,
+        'user_id': 1,
+
+        'title': title,
+        'description': description,
+        if (dueAt != null) 'due_at': dueAt.toIso8601String(),
+
       }),
     );
 

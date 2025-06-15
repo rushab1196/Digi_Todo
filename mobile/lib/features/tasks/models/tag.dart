@@ -17,11 +17,13 @@ class Tag {
   Color? get color =>
       colorHex != null ? _hexToColor(colorHex!) : null;
 
+
   factory Tag.fromJson(Map<String, dynamic> json) {
     return Tag(
       id: json['id'] as int,
       name: json['name'] as String,
       colorHex: json['color'] as String?,
+
     );
   }
 }

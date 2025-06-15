@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Task;
 use App\Models\Tag;
+
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -17,11 +18,16 @@ class TaskApiTest extends TestCase
         $user = User::factory()->create();
         $tags = Tag::factory()->count(2)->create();
 
+
+
+        $tags = Tag::factory()->count(2)->create();
+
         $response = $this->postJson('/api/tasks', [
             'user_id' => $user->id,
             'title' => 'Test Task',
             'due_at' => '2025-06-30 12:00:00',
             'tags' => $tags->pluck('id')->all(),
+
         ]);
 
         $response->assertCreated()
@@ -41,5 +47,6 @@ class TaskApiTest extends TestCase
             ->assertOk()
             ->assertJsonPath('id', $taskId)
             ->assertJsonCount(2, 'tags');
+
     }
 }
