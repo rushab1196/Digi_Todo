@@ -5,13 +5,8 @@ import '../bloc/task_bloc.dart';
 import '../data/task_repository.dart';
 import '../models/task.dart';
 
+
 import 'add_task_page.dart';
-
-
-
-
-
-
 
 class TaskListPage extends StatelessWidget {
   final String baseUrl;
@@ -51,9 +46,16 @@ class TaskListPage extends StatelessWidget {
                           Wrap(
                             spacing: 4,
                             children: task.tags
-                                .map((tag) => Chip(
+
+                                .map(
+                                  (tag) => Chip(
+                                    label: Text(tag.name, style: const TextStyle(fontSize: 12)),
+                                    backgroundColor: tag.color,
+                                  ),
+                                                         .map((tag) => Chip(
                                       label: Text(tag.name, style: const TextStyle(fontSize: 12)),
                                     ))
+
                                 .toList(),
                           ),
                       ],
@@ -79,7 +81,6 @@ class TaskListPage extends StatelessWidget {
                     trailing: task.isCompleted
                         ? const Icon(Icons.check_circle, color: Colors.green)
                         : null,
-
                   );
                 },
               );
@@ -94,6 +95,7 @@ class TaskListPage extends StatelessWidget {
           onPressed: () {
             Navigator.of(context).push(
               MaterialPageRoute(
+
 
                 builder: (_) => AddTaskPage(baseUrl: baseUrl),
 

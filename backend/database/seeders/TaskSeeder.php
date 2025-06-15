@@ -4,9 +4,11 @@ namespace Database\Seeders;
 
 use App\Models\Task;
 use App\Models\User;
+use App\Models\Tag;
+use Illuminate\Database\Seeder;
+
 
 use App\Models\Tag;
-
 
 
 class TaskSeeder extends Seeder
@@ -24,6 +26,7 @@ class TaskSeeder extends Seeder
                 $task->tags()->attach($tags->random(rand(1, $tags->count())));
             }
         });
+
 
         Task::factory()->count(5)->create();
 

@@ -8,10 +8,11 @@ import '../models/tag.dart';
 class AddTaskPage extends StatefulWidget {
   final String baseUrl;
   const AddTaskPage({super.key, required this.baseUrl});
-=======
+
 
 class AddTaskPage extends StatefulWidget {
   const AddTaskPage({super.key});
+
 
   @override
   State<AddTaskPage> createState() => _AddTaskPageState();
@@ -46,7 +47,6 @@ class _AddTaskPageState extends State<AddTaskPage> {
     _descriptionController.dispose();
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -104,6 +104,10 @@ class _AddTaskPageState extends State<AddTaskPage> {
                       .map(
                         (tag) => FilterChip(
                           label: Text(tag.name),
+
+                          backgroundColor: tag.color,
+                          selectedColor: tag.color,
+
                           selected: _selectedTagIds.contains(tag.id),
                           onSelected: (selected) {
                             setState(() {

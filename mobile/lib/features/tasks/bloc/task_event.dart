@@ -41,12 +41,10 @@ class ToggleTaskCompletion extends TaskEvent {
   @override
   List<Object?> get props => [task, isCompleted];
 }
-=======
 
 class AddTask extends TaskEvent {
   final int userId;
-=======
-  final int userId;
+
 
     required this.userId,
   List<Object?> get props => [userId, title, description, dueAt];
@@ -68,9 +66,5 @@ class AddTask extends TaskEvent {
 
   List<Object?> get props => [userId, title, description, dueAt];
 }
-=======
-  List<Object?> get props => [title, description, dueAt];
-}
-
 
 

@@ -18,6 +18,10 @@ The API now supports managing tasks and tags. Tasks can be assigned multiple
 tags by including a `tags` array of tag IDs when creating or updating a task.
 
 
+The API now supports managing tasks and tags. Tasks can be assigned multiple
+tags by including a `tags` array of tag IDs when creating or updating a task.
+
+
 ## Mobile (Flutter)
 
 1. Copy `mobile/.env.example` to `mobile/.env` and set `API_BASE_URL` to the

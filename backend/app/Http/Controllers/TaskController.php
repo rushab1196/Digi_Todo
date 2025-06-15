@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
-
 use Illuminate\Http\Request;
 
 use Illuminate\Http\Response;
@@ -17,8 +16,8 @@ class TaskController extends Controller
      */
     public function index(): \Illuminate\Http\JsonResponse
     {
-
         return response()->json(Task::with('tags')->get());
+
 
         return response()->json(Task::all());
 
@@ -37,7 +36,6 @@ class TaskController extends Controller
             'title' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'due_at' => ['nullable', 'date'],
-
             'tags' => ['sometimes', 'array'],
             'tags.*' => ['integer', 'exists:tags,id'],
         ]);
@@ -51,12 +49,13 @@ class TaskController extends Controller
         }
 
         return response()->json($task->load('tags'), Response::HTTP_CREATED);
-=======
+
         ]);
 
         $task = Task::create($data);
 
         return response()->json($task, Response::HTTP_CREATED);
+
 
     }
 
@@ -70,7 +69,8 @@ class TaskController extends Controller
     {
 
         return response()->json($task->load('tags'));
-=======
+
+
         return response()->json($task);
 
     }
@@ -103,12 +103,13 @@ class TaskController extends Controller
         }
 
         return response()->json($task->load('tags'));
-=======
+
         ]);
 
         $task->update($data);
 
         return response()->json($task);
+
 
     }
 
@@ -124,6 +125,7 @@ class TaskController extends Controller
 
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
+}
 
 }
 

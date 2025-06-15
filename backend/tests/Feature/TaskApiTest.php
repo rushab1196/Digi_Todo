@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Models\Task;
-
 use App\Models\Tag;
 
 use App\Models\User;
@@ -17,15 +16,16 @@ class TaskApiTest extends TestCase
     public function test_can_create_and_fetch_task(): void
     {
         $user = User::factory()->create();
-
         $tags = Tag::factory()->count(2)->create();
 
+
+
+        $tags = Tag::factory()->count(2)->create();
 
         $response = $this->postJson('/api/tasks', [
             'user_id' => $user->id,
             'title' => 'Test Task',
             'due_at' => '2025-06-30 12:00:00',
-
             'tags' => $tags->pluck('id')->all(),
 
         ]);
@@ -36,7 +36,6 @@ class TaskApiTest extends TestCase
 
         $taskId = $response->json('id');
 
-
         $this->assertDatabaseHas('tasks', [
             'id' => $taskId,
             'user_id' => $user->id,
@@ -46,7 +45,6 @@ class TaskApiTest extends TestCase
 
         $this->getJson("/api/tasks/$taskId")
             ->assertOk()
-
             ->assertJsonPath('id', $taskId)
             ->assertJsonCount(2, 'tags');
 
