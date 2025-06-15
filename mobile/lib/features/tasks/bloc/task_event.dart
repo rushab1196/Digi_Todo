@@ -10,6 +10,16 @@ abstract class TaskEvent extends Equatable {
 class LoadTasks extends TaskEvent {}
 
 
+
+class ToggleTaskCompletion extends TaskEvent {
+  final Task task;
+  final bool isCompleted;
+
+  const ToggleTaskCompletion(this.task, this.isCompleted);
+
+  @override
+  List<Object?> get props => [task, isCompleted];
+}
 class AddTask extends TaskEvent {
   final int userId;
 =======

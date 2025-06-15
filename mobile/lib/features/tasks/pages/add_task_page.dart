@@ -17,6 +17,13 @@ class _AddTaskPageState extends State<AddTaskPage> {
   DateTime? _dueAt;
 
   @override
+  void dispose() {
+    _titleController.dispose();
+    _descriptionController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('New Task')),
@@ -88,3 +95,4 @@ class _AddTaskPageState extends State<AddTaskPage> {
     );
   }
 }
+

@@ -18,6 +18,11 @@ import 'add_task_page.dart';
 
 
 
+                    onTap: () {
+                      context.read<TaskBloc>().add(
+                            ToggleTaskCompletion(task, !task.isCompleted),
+                          );
+                    },
 class TaskListPage extends StatelessWidget {
   final String baseUrl;
 

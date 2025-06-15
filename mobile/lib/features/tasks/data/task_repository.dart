@@ -24,6 +24,33 @@ class TaskRepository {
 
   Future<Task> createTask(
     int userId,
+
+  Future<Task> updateTask(
+    int id, {
+    String? title,
+    String? description,
+    DateTime? dueAt,
+    bool? isCompleted,
+  }) async {
+    final body = <String, dynamic>{};
+    if (title != null) body['title'] = title;
+    if (description != null) body['description'] = description;
+    if (dueAt != null) body['due_at'] = dueAt.toIso8601String();
+    if (isCompleted != null) body['is_completed'] = isCompleted;
+
+    final response = await _client.patch(
+      Uri.parse('$baseUrl/tasks/$id'),
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode(body),
+    );
+
+    if (response.statusCode == 200) {
+      return Task.fromJson(
+        json.decode(response.body) as Map<String, dynamic>,
+      );
+    }
+    throw Exception('Failed to update task');
+  }
 =======
     int userId,
         'user_id': userId,

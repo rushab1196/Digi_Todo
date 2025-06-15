@@ -22,6 +22,27 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     });
 
 
+
+    on<ToggleTaskCompletion>((event, emit) async {
+      try {
+        final updatedTask = await repository.updateTask(
+          event.task.id,
+          isCompleted: event.isCompleted,
+        );
+
+        if (state is TaskLoaded) {
+          final tasks = (state as TaskLoaded)
+              .tasks
+              .map((t) => t.id == updatedTask.id ? updatedTask : t)
+              .toList();
+          emit(TaskLoaded(tasks));
+        } else {
+          add(LoadTasks());
+        }
+      } catch (e) {
+        emit(TaskError(e.toString()));
+      }
+    });
     on<AddTask>((event, emit) async {
       try {
         final newTask = await repository.createTask(
