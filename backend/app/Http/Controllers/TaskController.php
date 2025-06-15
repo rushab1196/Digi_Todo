@@ -10,6 +10,8 @@ class TaskController extends Controller
 {
     /**
      * Display a listing of tasks.
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(): \Illuminate\Http\JsonResponse
     {
@@ -18,6 +20,9 @@ class TaskController extends Controller
 
     /**
      * Store a newly created task.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request): \Illuminate\Http\JsonResponse
     {
@@ -35,6 +40,9 @@ class TaskController extends Controller
 
     /**
      * Display the specified task.
+     *
+     * @param Task $task
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(Task $task): \Illuminate\Http\JsonResponse
     {
@@ -43,6 +51,10 @@ class TaskController extends Controller
 
     /**
      * Update the specified task.
+     *
+     * @param Request $request
+     * @param Task $task
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, Task $task): \Illuminate\Http\JsonResponse
     {
@@ -60,6 +72,9 @@ class TaskController extends Controller
 
     /**
      * Remove the specified task.
+     *
+     * @param Task $task
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Task $task): \Illuminate\Http\JsonResponse
     {
