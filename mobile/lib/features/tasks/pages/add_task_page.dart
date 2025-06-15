@@ -69,6 +69,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     context.read<TaskBloc>().add(AddTask(
+                          userId: 1,
                           title: _titleController.text,
                           description: _descriptionController.text.isEmpty
                               ? null
