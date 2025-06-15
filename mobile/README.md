@@ -1,6 +1,6 @@
 # mobile
 
-A new Flutter project.
+A Flutter client for Digi Task.
 
 ## Getting Started
 
@@ -10,6 +10,10 @@ A few resources to get you started if this is your first Flutter project:
 
 - [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+
+
+Copy `.env.example` to `.env` and adjust `API_BASE_URL` to point to the backend
+API before running the app.
 
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
