@@ -14,3 +14,6 @@ This is a lightweight Laravel skeleton for the Digi Task application.
 
 ## Testing
 Run `composer test` to execute the PHPUnit test suite.
+
+## Admin Panel
+The `/admin` route loads a simple Tailwind-based dashboard. Use it as a starting point to manage users, tasks and settings.

@@ -7,3 +7,4 @@ Both projects are intentionally lightweight to serve as a starting point.
 - `mobile/` – Flutter 3.3 application
 
 Follow the respective README files in each directory for setup instructions.
+- Access the admin dashboard at `/admin` once the Laravel server is running.
