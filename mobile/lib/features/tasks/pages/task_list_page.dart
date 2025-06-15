@@ -17,9 +17,12 @@ class TaskListPage extends StatelessWidget {
   final String baseUrl;
 
   const TaskListPage({super.key, required this.baseUrl});
-
-  @override
-  Widget build(BuildContext context) {
+                                .map(
+                                  (tag) => Chip(
+                                    label: Text(tag.name, style: const TextStyle(fontSize: 12)),
+                                    backgroundColor: tag.color,
+                                  ),
+                                )
     return BlocProvider(
       create: (_) => TaskBloc(repository: TaskRepository(baseUrl: baseUrl))
         ..add(LoadTasks()),

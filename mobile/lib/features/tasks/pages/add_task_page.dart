@@ -74,6 +74,8 @@ class _AddTaskPageState extends State<AddTaskPage> {
                 children: [
                   Expanded(
                     child: Text(
+                          backgroundColor: tag.color,
+                          selectedColor: tag.color,
                       _dueAt != null
                           ? 'Due: \${_dueAt!.toLocal().toString().split(" ")[0]}'
                           : 'No due date',
