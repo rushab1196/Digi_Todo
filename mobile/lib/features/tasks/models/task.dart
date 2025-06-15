@@ -1,3 +1,4 @@
+
 import 'tag.dart';
 
 class Task {
@@ -8,6 +9,7 @@ class Task {
   final bool isCompleted;
   final List<Tag> tags;
 
+
   Task({
     required this.id,
     required this.title,
@@ -15,6 +17,7 @@ class Task {
     this.dueAt,
     this.isCompleted = false,
     this.tags = const [],
+
   });
 
   factory Task.fromJson(Map<String, dynamic> json) {

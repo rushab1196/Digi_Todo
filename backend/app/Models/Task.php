@@ -22,8 +22,10 @@ class Task extends Model
         'due_at' => 'datetime',
     ];
 
+
     public function tags()
     {
         return $this->belongsToMany(Tag::class);
     }
+
 }

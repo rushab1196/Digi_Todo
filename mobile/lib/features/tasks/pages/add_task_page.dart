@@ -8,6 +8,10 @@ import '../models/tag.dart';
 class AddTaskPage extends StatefulWidget {
   final String baseUrl;
   const AddTaskPage({super.key, required this.baseUrl});
+=======
+
+class AddTaskPage extends StatefulWidget {
+  const AddTaskPage({super.key});
 
   @override
   State<AddTaskPage> createState() => _AddTaskPageState();
@@ -42,6 +46,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
     _descriptionController.dispose();
     super.dispose();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -127,6 +132,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                           tags: _availableTags
                               .where((t) => _selectedTagIds.contains(t.id))
                               .toList(),
+
                         ));
                     Navigator.of(context).pop();
                   }
@@ -140,4 +146,5 @@ class _AddTaskPageState extends State<AddTaskPage> {
     );
   }
 }
+
 
