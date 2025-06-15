@@ -9,6 +9,7 @@ abstract class TaskEvent extends Equatable {
 
 class LoadTasks extends TaskEvent {}
 
+
 class AddTask extends TaskEvent {
   final String title;
   final String? description;
@@ -23,3 +24,4 @@ class AddTask extends TaskEvent {
   @override
   List<Object?> get props => [title, description, dueAt];
 }
+

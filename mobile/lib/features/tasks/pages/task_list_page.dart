@@ -4,7 +4,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/task_bloc.dart';
 import '../data/task_repository.dart';
 import '../models/task.dart';
+
 import 'add_task_page.dart';
+
+
+
+import 'add_task_page.dart';
+
+
 
 class TaskListPage extends StatelessWidget {
   final String baseUrl;
@@ -29,6 +36,7 @@ class TaskListPage extends StatelessWidget {
                   final task = state.tasks[index];
                   return ListTile(
                     title: Text(task.title),
+
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -40,6 +48,12 @@ class TaskListPage extends StatelessWidget {
                           ),
                       ],
                     ),
+
+                    subtitle: task.description != null
+                        ? Text(task.description!)
+                        : null,
+
+
                     trailing: task.isCompleted
                         ? const Icon(Icons.check_circle, color: Colors.green)
                         : null,
@@ -52,6 +66,7 @@ class TaskListPage extends StatelessWidget {
             return const SizedBox.shrink();
           },
         ),
+
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.of(context).push(
@@ -62,6 +77,7 @@ class TaskListPage extends StatelessWidget {
           },
           child: const Icon(Icons.add),
         ),
+
       ),
     );
   }
